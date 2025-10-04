@@ -1,0 +1,14 @@
+name: Auto Merge PR 
+ 
+on: 
+  pull_request: 
+    types: [ opened, synchronize ] 
+ 
+jobs: 
+  automerge: 
+    runs-on: ubuntu-latest 
+    steps: 
+      - name: Auto Merge 
+        uses: pascalgn/automerge-action@v0.16.3 
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
