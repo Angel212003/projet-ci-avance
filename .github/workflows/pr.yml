@@ -1,23 +1,28 @@
-name: Create Pull Request
+name: Auto Pull Request from develop to main
 
 on:
   push:
     branches:
       - develop
 
+permissions:
+  contents: write       # Permet d’écrire sur le repo
+  pull-requests: write  # Permet de créer des PR
+
 jobs:
   create-pr:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout develop
         uses: actions/checkout@v3
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           base: main
-          branch: sync-develop
-          title: "Synchronisation develop ? main"
-          body: "Pull request générée automatiquement."
-          commit-message: "Mise à jour pour la PR automatique"
-          delete-branch: false  # garder la branche temporaire
+          branch: sync-develop-${{ github.run_number }}  # branche unique à chaque run
+          title: "Synchronisation develop ? main #${{ github.run_number }}"
+          body: |
+            Pull request générée automatiquement depuis la branche develop.
+          commit-message: "Mise à jour automatique pour PR #${{ github.run_number }}"
+          delete-branch: false
