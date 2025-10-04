@@ -15,7 +15,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          branch: develop
-          base: main
+          base: main            # Branche cible (main)
+          branch: sync-develop  # Branche temporaire pour la PR
           title: "?? Synchronisation develop ? main"
           body: "Pull request générée automatiquement."
